@@ -75,3 +75,17 @@ nothing; preserved invariants are never overwritten).
 | Engine (Python, cumulative) | 99 | 99% line / 98% branch | ≥ 90% | PASS |
 | App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
 | UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
+
+## Phase 5 — Experimental form
+
+Engine modules added: the eight formal operators (INTERRUPT, RECURSE, REFRACT,
+COLLAGE, SPIRAL, WITHHOLD, REINTERPRET, TRANSPOSE) as versioned, configurable
+definitions that add formal relations and refuse to assert a diegetic CAUSES
+edge; intentional-vs-accidental inconsistency classification; and reader-model
+transitions that reclassify events without a causal edge.
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python, cumulative) | 106 | 99% line / 98% branch | ≥ 90% | PASS |
+| App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
+| UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
