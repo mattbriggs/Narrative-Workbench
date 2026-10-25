@@ -1,0 +1,811 @@
+{
+  "Commit": {
+    "$defs": {
+      "ActorRole": {
+        "description": "Actor roles and their mutation authority (SRS SS2.3).",
+        "enum": [
+          "narrative_designer",
+          "writer",
+          "critic",
+          "researcher",
+          "reviewer",
+          "administrator",
+          "ai_service"
+        ],
+        "title": "ActorRole",
+        "type": "string"
+      },
+      "AuthorityState": {
+        "description": "Whether the actor may carry a proposal forward.",
+        "enum": [
+          "allowed",
+          "approvalRequired",
+          "denied"
+        ],
+        "title": "AuthorityState",
+        "type": "string"
+      },
+      "Origin": {
+        "description": "Provenance origin of a change (NW ADD v1.1 Table 16).",
+        "enum": [
+          "human",
+          "imported_source",
+          "deterministic_rule",
+          "model_proposal",
+          "derived_projection"
+        ],
+        "title": "Origin",
+        "type": "string"
+      },
+      "ProvenanceRecord": {
+        "description": "The seven provenance fields (NW ADD v1.1 Table 16, SRS REQ-097).",
+        "properties": {
+          "actor": {
+            "$ref": "#/$defs/ActorRole"
+          },
+          "alternatives": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "authority": {
+            "$ref": "#/$defs/AuthorityState"
+          },
+          "decision": {
+            "default": "",
+            "title": "Decision",
+            "type": "string"
+          },
+          "inputs": {
+            "additionalProperties": true,
+            "title": "Inputs",
+            "type": "object"
+          },
+          "model_metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Model Metadata"
+          },
+          "origin": {
+            "$ref": "#/$defs/Origin"
+          },
+          "reproducibility": {
+            "default": "auditable",
+            "title": "Reproducibility",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin",
+          "actor",
+          "authority"
+        ],
+        "title": "ProvenanceRecord",
+        "type": "object"
+      }
+    },
+    "description": "An immutable set of accepted operations against one parent (SRS REQ-090).",
+    "properties": {
+      "accepted_alternatives": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Accepted Alternatives",
+        "type": "array"
+      },
+      "actor": {
+        "$ref": "#/$defs/ActorRole"
+      },
+      "authority": {
+        "$ref": "#/$defs/AuthorityState"
+      },
+      "branch_id": {
+        "title": "Branch Id",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "message": {
+        "default": "",
+        "title": "Message",
+        "type": "string"
+      },
+      "op_ids": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Op Ids",
+        "type": "array"
+      },
+      "parent_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Parent Id"
+      },
+      "provenance": {
+        "$ref": "#/$defs/ProvenanceRecord"
+      }
+    },
+    "required": [
+      "id",
+      "parent_id",
+      "branch_id",
+      "actor",
+      "authority",
+      "provenance"
+    ],
+    "title": "Commit",
+    "type": "object"
+  },
+  "Comparison": {
+    "$defs": {
+      "ActorRole": {
+        "description": "Actor roles and their mutation authority (SRS SS2.3).",
+        "enum": [
+          "narrative_designer",
+          "writer",
+          "critic",
+          "researcher",
+          "reviewer",
+          "administrator",
+          "ai_service"
+        ],
+        "title": "ActorRole",
+        "type": "string"
+      },
+      "AuthorityState": {
+        "description": "Whether the actor may carry a proposal forward.",
+        "enum": [
+          "allowed",
+          "approvalRequired",
+          "denied"
+        ],
+        "title": "AuthorityState",
+        "type": "string"
+      },
+      "ComparisonRow": {
+        "description": "One dimension row of the counterfactual matrix (SRS REQ-063).",
+        "properties": {
+          "deterministic": {
+            "items": {
+              "$ref": "#/$defs/Diff"
+            },
+            "title": "Deterministic",
+            "type": "array"
+          },
+          "dimension": {
+            "title": "Dimension",
+            "type": "string"
+          },
+          "hypotheses": {
+            "items": {
+              "$ref": "#/$defs/Diff"
+            },
+            "title": "Hypotheses",
+            "type": "array"
+          }
+        },
+        "required": [
+          "dimension"
+        ],
+        "title": "ComparisonRow",
+        "type": "object"
+      },
+      "Diff": {
+        "description": "A single labeled change in a comparison (SRS REQ-064).",
+        "properties": {
+          "after": {
+            "default": null,
+            "title": "After"
+          },
+          "before": {
+            "default": null,
+            "title": "Before"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "subject"
+        ],
+        "title": "Diff",
+        "type": "object"
+      },
+      "Origin": {
+        "description": "Provenance origin of a change (NW ADD v1.1 Table 16).",
+        "enum": [
+          "human",
+          "imported_source",
+          "deterministic_rule",
+          "model_proposal",
+          "derived_projection"
+        ],
+        "title": "Origin",
+        "type": "string"
+      },
+      "ProvenanceRecord": {
+        "description": "The seven provenance fields (NW ADD v1.1 Table 16, SRS REQ-097).",
+        "properties": {
+          "actor": {
+            "$ref": "#/$defs/ActorRole"
+          },
+          "alternatives": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "authority": {
+            "$ref": "#/$defs/AuthorityState"
+          },
+          "decision": {
+            "default": "",
+            "title": "Decision",
+            "type": "string"
+          },
+          "inputs": {
+            "additionalProperties": true,
+            "title": "Inputs",
+            "type": "object"
+          },
+          "model_metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Model Metadata"
+          },
+          "origin": {
+            "$ref": "#/$defs/Origin"
+          },
+          "reproducibility": {
+            "default": "auditable",
+            "title": "Reproducibility",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin",
+          "actor",
+          "authority"
+        ],
+        "title": "ProvenanceRecord",
+        "type": "object"
+      }
+    },
+    "description": "A counterfactual comparison matrix with provenance (SRS REQ-063/066).",
+    "properties": {
+      "baseline_commit_id": {
+        "title": "Baseline Commit Id",
+        "type": "string"
+      },
+      "intervention_id": {
+        "title": "Intervention Id",
+        "type": "string"
+      },
+      "preserved_variable_ids": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Preserved Variable Ids",
+        "type": "array"
+      },
+      "provenance": {
+        "$ref": "#/$defs/ProvenanceRecord"
+      },
+      "rows": {
+        "items": {
+          "$ref": "#/$defs/ComparisonRow"
+        },
+        "title": "Rows",
+        "type": "array"
+      },
+      "unresolved_constraints": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Unresolved Constraints",
+        "type": "array"
+      }
+    },
+    "required": [
+      "baseline_commit_id",
+      "intervention_id",
+      "provenance"
+    ],
+    "title": "Comparison",
+    "type": "object"
+  },
+  "Context": {
+    "$defs": {
+      "ActorRole": {
+        "description": "Actor roles and their mutation authority (SRS SS2.3).",
+        "enum": [
+          "narrative_designer",
+          "writer",
+          "critic",
+          "researcher",
+          "reviewer",
+          "administrator",
+          "ai_service"
+        ],
+        "title": "ActorRole",
+        "type": "string"
+      },
+      "Mode": {
+        "description": "The three operating modes (SRS SS1.2).",
+        "enum": [
+          "composition",
+          "criticism",
+          "counterfactual"
+        ],
+        "title": "Mode",
+        "type": "string"
+      }
+    },
+    "description": "Resolved command context (SRS REQ-130 step 1).",
+    "properties": {
+      "actor": {
+        "$ref": "#/$defs/ActorRole",
+        "default": "narrative_designer"
+      },
+      "branch_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Branch Id"
+      },
+      "commit_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Commit Id"
+      },
+      "mode": {
+        "$ref": "#/$defs/Mode",
+        "default": "composition"
+      },
+      "work_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Work Id"
+      }
+    },
+    "title": "Context",
+    "type": "object"
+  },
+  "Proposal": {
+    "$defs": {
+      "AuthorityState": {
+        "description": "Whether the actor may carry a proposal forward.",
+        "enum": [
+          "allowed",
+          "approvalRequired",
+          "denied"
+        ],
+        "title": "AuthorityState",
+        "type": "string"
+      },
+      "Origin": {
+        "description": "Provenance origin of a change (NW ADD v1.1 Table 16).",
+        "enum": [
+          "human",
+          "imported_source",
+          "deterministic_rule",
+          "model_proposal",
+          "derived_projection"
+        ],
+        "title": "Origin",
+        "type": "string"
+      },
+      "ProposalState": {
+        "description": "Proposal lifecycle states (SRS REQ-071).",
+        "enum": [
+          "none",
+          "draft",
+          "submitted",
+          "validating",
+          "rejected",
+          "awaitingApproval",
+          "revisionRequested",
+          "accepted",
+          "committing",
+          "committed"
+        ],
+        "title": "ProposalState",
+        "type": "string"
+      }
+    },
+    "description": "A not-yet-durable delta moving through the lifecycle (SRS REQ-070).",
+    "properties": {
+      "alternatives": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Alternatives",
+        "type": "array"
+      },
+      "authority_required": {
+        "$ref": "#/$defs/AuthorityState",
+        "default": "approvalRequired"
+      },
+      "frozen": {
+        "default": false,
+        "title": "Frozen",
+        "type": "boolean"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "model_metadata": {
+        "anyOf": [
+          {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Model Metadata"
+      },
+      "origin": {
+        "$ref": "#/$defs/Origin",
+        "default": "human"
+      },
+      "payload": {
+        "additionalProperties": true,
+        "title": "Payload",
+        "type": "object"
+      },
+      "predecessor_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Predecessor Id"
+      },
+      "state": {
+        "$ref": "#/$defs/ProposalState",
+        "default": "draft"
+      }
+    },
+    "required": [
+      "id"
+    ],
+    "title": "Proposal",
+    "type": "object"
+  },
+  "Request": {
+    "$defs": {
+      "ActorRole": {
+        "description": "Actor roles and their mutation authority (SRS SS2.3).",
+        "enum": [
+          "narrative_designer",
+          "writer",
+          "critic",
+          "researcher",
+          "reviewer",
+          "administrator",
+          "ai_service"
+        ],
+        "title": "ActorRole",
+        "type": "string"
+      },
+      "Context": {
+        "description": "Resolved command context (SRS REQ-130 step 1).",
+        "properties": {
+          "actor": {
+            "$ref": "#/$defs/ActorRole",
+            "default": "narrative_designer"
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Branch Id"
+          },
+          "commit_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Commit Id"
+          },
+          "mode": {
+            "$ref": "#/$defs/Mode",
+            "default": "composition"
+          },
+          "work_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Work Id"
+          }
+        },
+        "title": "Context",
+        "type": "object"
+      },
+      "Mode": {
+        "description": "The three operating modes (SRS SS1.2).",
+        "enum": [
+          "composition",
+          "criticism",
+          "counterfactual"
+        ],
+        "title": "Mode",
+        "type": "string"
+      }
+    },
+    "description": "An application-to-engine command envelope.\n\n:param op: the operation name dispatched by :mod:`nw_engine.rpc`.\n:param op_id: idempotency key echoed back on the response (SRS REQ-161).\n:param context: resolved work/branch/commit/mode/actor context.\n:param payload: operation-specific arguments.",
+    "properties": {
+      "context": {
+        "$ref": "#/$defs/Context"
+      },
+      "op": {
+        "title": "Op",
+        "type": "string"
+      },
+      "op_id": {
+        "title": "Op Id",
+        "type": "string"
+      },
+      "payload": {
+        "additionalProperties": true,
+        "title": "Payload",
+        "type": "object"
+      }
+    },
+    "required": [
+      "op",
+      "op_id"
+    ],
+    "title": "Request",
+    "type": "object"
+  },
+  "Response": {
+    "$defs": {
+      "ResponseError": {
+        "description": "A structured engine error (SRS SS3.4 error table).",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "scope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scope"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ResponseError",
+        "type": "object"
+      }
+    },
+    "description": "An engine-to-application result envelope.",
+    "properties": {
+      "error": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/ResponseError"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "ok": {
+        "title": "Ok",
+        "type": "boolean"
+      },
+      "op_id": {
+        "title": "Op Id",
+        "type": "string"
+      },
+      "result": {
+        "additionalProperties": true,
+        "title": "Result",
+        "type": "object"
+      }
+    },
+    "required": [
+      "op_id",
+      "ok"
+    ],
+    "title": "Response",
+    "type": "object"
+  },
+  "ValidationResult": {
+    "$defs": {
+      "HardFailure": {
+        "description": "A blocking invariant violation (SRS REQ-074).",
+        "properties": {
+          "alternatives": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "rule": {
+            "title": "Rule",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule",
+          "scope",
+          "explanation"
+        ],
+        "title": "HardFailure",
+        "type": "object"
+      },
+      "SoftGoal": {
+        "description": "A scored, non-blocking goal (SRS REQ-079).",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "rationale": {
+            "default": "",
+            "title": "Rationale",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "score"
+        ],
+        "title": "SoftGoal",
+        "type": "object"
+      }
+    },
+    "description": "The deterministic validation outcome for a proposal (SRS SS8.3).",
+    "properties": {
+      "hard_failures": {
+        "items": {
+          "$ref": "#/$defs/HardFailure"
+        },
+        "title": "Hard Failures",
+        "type": "array"
+      },
+      "passed": {
+        "title": "Passed",
+        "type": "boolean"
+      },
+      "soft_goals": {
+        "items": {
+          "$ref": "#/$defs/SoftGoal"
+        },
+        "title": "Soft Goals",
+        "type": "array"
+      },
+      "uncertainty": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Uncertainty"
+      },
+      "validator_version": {
+        "default": "0.1.0",
+        "title": "Validator Version",
+        "type": "string"
+      }
+    },
+    "required": [
+      "passed"
+    ],
+    "title": "ValidationResult",
+    "type": "object"
+  }
+}

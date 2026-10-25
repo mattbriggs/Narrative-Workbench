@@ -89,3 +89,47 @@ transitions that reclassify events without a causal edge.
 | Engine (Python, cumulative) | 106 | 99% line / 98% branch | ≥ 90% | PASS |
 | App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
 | UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
+
+## Phase 6 — Collaboration and ecosystem
+
+Engine modules added: workspace policy (least privilege, default deny; provider
+allowlist / local-only; prompt redaction), append-only audit log covering the
+six mandated actions, a plugin registry that rejects authority-bypassing
+capabilities, portable export (open JSON + Markdown report + source
+fingerprints, lossy-projection warning), a derived-index store where deleting an
+index never deletes the work, and the RPC dispatcher that ties validate /
+generate / ingest / extract end to end and turns engine errors into structured
+responses (never commits).
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python, cumulative) | 119 | 99% line (1101 stmts, 3 missed) / 98% branch | ≥ 90% | PASS |
+| App (Rust) | 29 | 98.0% region / 97.6% line | ≥ 80% | PASS |
+| UI (JS) | 14 | 100% line / 100% branch | states covered | PASS |
+
+## Final summary (all phases)
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python) | 119 | 99% line / 98% branch (invariant core 100%) | ≥ 90% | **PASS** |
+| App (Rust) | 29 | 98.0% region / 97.6% line | ≥ 80% | **PASS** |
+| UI (JS) | 14 | 100% line / 100% branch | states covered | **PASS** |
+| Tokens | — | token test PASS (0 unresolved aliases; no literals) | pass | **PASS** |
+
+**Total: 162 automated tests across three layers, all passing; every layer at
+or above its coverage target.** Reproduce with `bash scripts/run-all-tests.sh`.
+
+### Acceptance checks (spec §10)
+
+| Check | Status | Note |
+| --- | --- | --- |
+| 1 Token / literal-value test | PASS | `app/ui/tools/token-test.mjs` |
+| 2 Computed-style test | DEFERRED | needs packaged screens (CMP full build, Phase-1 UI subset done) |
+| 3 Packaged screenshot comparison | DEFERRED | needs the packaged desktop app (user's Mac) |
+| 4 Gherkin scenarios | PARTIAL | lifecycle/selection/job scenarios covered as unit + statechart tests; full screen scenarios pending the component build |
+| 5 `[PRE]` confirmation (all 20) | OPEN | all 20 remain Proposed; owners must sign off (`docs/pre-register.md`) |
+
+The deterministic core (engine) and application/UI logic are fully built and
+covered in the cloud. The full CMP-01..18 DOM components, the five packaged
+screens, and the desktop screenshot gate are the remaining UI build and are
+verified on the user's Mac; they do not change the coverage above.
