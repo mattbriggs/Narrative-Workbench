@@ -46,3 +46,18 @@ the event-driven job runner (partial never committed; linked retry).
 | Engine (Python, cumulative) | 88 | 99% line / 98% branch | ≥ 90% | PASS |
 | App (Rust) | 29 | 98.0% region / 97.6% line (unchanged) | ≥ 80% | PASS |
 | UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
+
+## Phase 3 — Scene composition
+
+Engine modules added: candidate trajectory generation (validates each
+candidate, scores soft goals separately from validity, preserves divergent
+alternatives, forbid creates a gate proposal and preserves the candidate) and
+prose reconciliation (detects prose assertions absent from the model and lets
+the author choose language or model authority; never mutates silently). The
+semantic conflict resolver path is exercised via the repository (Phase 1).
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python, cumulative) | 93 | 99% line / 98% branch | ≥ 90% | PASS |
+| App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
+| UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
