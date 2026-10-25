@@ -224,6 +224,81 @@
           "value": 220,
           "unit": "px"
         }
+      },
+      "space-tight": {
+        "$value": "{dimension.base.1}"
+      },
+      "focus-offset": {
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        }
+      },
+      "primary-min": {
+        "$value": {
+          "value": 520,
+          "unit": "px"
+        }
+      },
+      "inspector-drawer": {
+        "$value": {
+          "value": 420,
+          "unit": "px"
+        }
+      },
+      "trace-min": {
+        "$value": {
+          "value": 120,
+          "unit": "px"
+        }
+      },
+      "dialog-width": {
+        "$value": {
+          "value": 720,
+          "unit": "px"
+        }
+      },
+      "dialog-inset": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      },
+      "badge-min-height": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "card-min-width": {
+        "$value": {
+          "value": 160,
+          "unit": "px"
+        }
+      },
+      "pane-message-max": {
+        "$value": {
+          "value": 560,
+          "unit": "px"
+        }
+      },
+      "bp-narrow": {
+        "$value": {
+          "value": 360,
+          "unit": "px"
+        }
+      },
+      "bp-medium": {
+        "$value": {
+          "value": 768,
+          "unit": "px"
+        }
+      },
+      "bp-wide": {
+        "$value": {
+          "value": 1200,
+          "unit": "px"
+        }
       }
     }
   },

@@ -22,7 +22,7 @@ const FORBIDDEN = [
   { name: "px length", re: /(?<![\w-])\d+(?:\.\d+)?px\b/ },
   { name: "rem length", re: /(?<![\w-])\d+(?:\.\d+)?rem\b/ },
   { name: "ms duration", re: /(?<![\w-])\d+(?:\.\d+)?ms\b/ },
-  { name: "font-family literal", re: /font-family\s*:\s*(?!var\()/i },
+  { name: "font-family literal", re: /font-family\s*:(?!\s*var\()/i },
   { name: "base-token reference", re: /var\(\s*--(?:color|dimension|radius|duration|fontFamily)-base-/ },
 ];
 

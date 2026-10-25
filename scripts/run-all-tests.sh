@@ -27,4 +27,8 @@ echo "== UI (JS): node --test + coverage =="
 cd "$ROOT/app/ui"
 node --test --experimental-test-coverage "state/store.test.mjs" "statecharts/statecharts.test.mjs"
 
+echo "== UI scenarios + screenshots (headless Chromium) =="
+cd "$ROOT"
+node app/ui/tools/run-scenarios.mjs "${NW_SHOT_DIR:-$ROOT/.screenshots}"
+
 echo "All suites passed."

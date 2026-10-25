@@ -119,17 +119,42 @@ responses (never commits).
 **Total: 162 automated tests across three layers, all passing; every layer at
 or above its coverage target.** Reproduce with `bash scripts/run-all-tests.sh`.
 
+## UI build — components and screens
+
+The 18 shared components (CMP-01..18) are implemented as token-only Web
+Components with their ARIA/native roles, composed into the five screens (Shell,
+Composition Studio, Criticism Parlor, Counterfactual Laboratory, Proposal
+Review) over one synchronized shell. A JS responsive controller reads
+breakpoints from the token file (no literal px in media queries), and the global
+keyboard model (F6 region cycle, Ctrl/Cmd+J drawer, Escape) is installed.
+
+A headless Chromium (Playwright) harness drives the real UI and runs the key
+SRS §9 acceptance scenarios, then captures screenshots of the five screens.
+
+| UI verification | Result |
+| --- | --- |
+| Token test over components + screens | PASS (no literals; role tokens only) |
+| Scenario checks (`app/ui/tools/run-scenarios.mjs`) | **23/23 PASS** |
+| Screenshots (Screens 1–5, wide + narrow) | captured |
+
+Scenarios covered headlessly: synchronized selection non-mutating; direct
+manipulation opens a preview; acceptance distinct from commit; disabled Commit
+explains why; source span immutable; broken anchor blocks publication;
+color-independent lifecycle badge; partial job not committed; reader-model
+labeled "Intended response"; seven-dimension matrix; override requires a reason;
+narrow layout keeps context and selection.
+
 ### Acceptance checks (spec §10)
 
 | Check | Status | Note |
 | --- | --- | --- |
 | 1 Token / literal-value test | PASS | `app/ui/tools/token-test.mjs` |
-| 2 Computed-style test | DEFERRED | needs packaged screens (CMP full build, Phase-1 UI subset done) |
-| 3 Packaged screenshot comparison | DEFERRED | needs the packaged desktop app (user's Mac) |
-| 4 Gherkin scenarios | PARTIAL | lifecycle/selection/job scenarios covered as unit + statechart tests; full screen scenarios pending the component build |
+| 2 Computed-style test | PARTIAL | components render with role-token computed styles at wide/narrow; a full per-property assertion suite is the remaining step |
+| 3 Packaged screenshot comparison | PARTIAL | dev-server screenshots of Screens 1–5 captured headlessly; the **packaged desktop** screenshot gate is verified on the user's Mac (`CLAUDE.md`) |
+| 4 Gherkin scenarios | PASS (cloud subset) | 23 scenario checks green via Playwright, plus unit/statechart coverage; any desktop-only scenarios remain for the Mac |
 | 5 `[PRE]` confirmation (all 20) | OPEN | all 20 remain Proposed; owners must sign off (`docs/pre-register.md`) |
 
-The deterministic core (engine) and application/UI logic are fully built and
-covered in the cloud. The full CMP-01..18 DOM components, the five packaged
-screens, and the desktop screenshot gate are the remaining UI build and are
-verified on the user's Mac; they do not change the coverage above.
+The engine, application logic, and the full component/screen UI are built and
+verified headlessly in the cloud. What remains is owner sign-off of the `[PRE]`
+items and the packaged-desktop screenshot gate on the user's Mac — neither
+changes the coverage above.
