@@ -12,8 +12,10 @@ Don't add other frameworks, languages, or graph libraries unless the user asks.
 
 ## Cloud sessions
 
-`scripts/cloud-setup.sh` runs at the start of each cloud session and installs
-the toolchain. The Python engine uses the `.venv` at the repo root.
+The cloud environment's setup script (kept in `scripts/cloud-env-setup.sh`)
+installs the Tauri build dependencies and headless Chromium. Rust and Node 22
+come with the cloud image. `scripts/session-start.sh` runs at the start of each
+cloud session and sets up the Python engine's `.venv` at the repo root.
 
 A cloud machine has no display, so it can't open the Tauri desktop window. In
 the cloud, build and test the Rust and Python parts, and serve the web front
