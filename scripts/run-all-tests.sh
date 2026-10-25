@@ -27,6 +27,10 @@ echo "== UI (JS): node --test + coverage =="
 cd "$ROOT/app/ui"
 node --test --experimental-test-coverage "state/store.test.mjs" "statecharts/statecharts.test.mjs"
 
+echo "== UI computed-style suite (wide / medium / narrow) =="
+cd "$ROOT"
+node app/ui/tools/run-computed-style.mjs
+
 echo "== UI scenarios + screenshots (headless Chromium) =="
 cd "$ROOT"
 node app/ui/tools/run-scenarios.mjs "${NW_SHOT_DIR:-$ROOT/.screenshots}"

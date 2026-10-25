@@ -228,6 +228,12 @@
       "space-tight": {
         "$value": "{dimension.base.1}"
       },
+      "space-loose": {
+        "$value": "{dimension.base.5}"
+      },
+      "space-xloose": {
+        "$value": "{dimension.base.6}"
+      },
       "focus-offset": {
         "$value": {
           "value": 2,

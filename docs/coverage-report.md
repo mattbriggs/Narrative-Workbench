@@ -134,8 +134,17 @@ SRS §9 acceptance scenarios, then captures screenshots of the five screens.
 | UI verification | Result |
 | --- | --- |
 | Token test over components + screens | PASS (no literals; role tokens only) |
+| Computed-style suite (`app/ui/tools/run-computed-style.mjs`) | **PASS** at wide / medium / narrow |
 | Scenario checks (`app/ui/tools/run-scenarios.mjs`) | **23/23 PASS** |
 | Screenshots (Screens 1–5, wide + narrow) | captured |
+
+The computed-style suite reads the computed value of every property named in
+each component record (CMP-01..18) and key states (selected navigator row,
+selected candidate, disabled command, badge kinds, modal dialogs, pane message),
+and asserts each equals its **token-derived** expected value (read from the
+generated CSS variables in-page, not hardcoded). Responsive layout tracks
+(work-area columns, navigator/inspector widths, region-tab visibility, active
+narrow tab) are asserted at all three reference sizes.
 
 Scenarios covered headlessly: synchronized selection non-mutating; direct
 manipulation opens a preview; acceptance distinct from commit; disabled Commit
@@ -149,7 +158,7 @@ narrow layout keeps context and selection.
 | Check | Status | Note |
 | --- | --- | --- |
 | 1 Token / literal-value test | PASS | `app/ui/tools/token-test.mjs` |
-| 2 Computed-style test | PARTIAL | components render with role-token computed styles at wide/narrow; a full per-property assertion suite is the remaining step |
+| 2 Computed-style test | PASS (cloud) | per-property assertion suite green at wide/medium/narrow (`run-computed-style.mjs`); the packaged-desktop equivalent is run on the user's Mac |
 | 3 Packaged screenshot comparison | PARTIAL | dev-server screenshots of Screens 1–5 captured headlessly; the **packaged desktop** screenshot gate is verified on the user's Mac (`CLAUDE.md`) |
 | 4 Gherkin scenarios | PASS (cloud subset) | 23 scenario checks green via Playwright, plus unit/statechart coverage; any desktop-only scenarios remain for the Mac |
 | 5 `[PRE]` confirmation (all 20) | OPEN | all 20 remain Proposed; owners must sign off (`docs/pre-register.md`) |

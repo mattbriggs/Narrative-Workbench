@@ -204,7 +204,7 @@ nw-region-tabs[hidden] {
   inline-size: min(var(--dimension-role-dialog-width), calc(100vw - var(--dimension-role-space-region) * 2));
   max-block-size: calc(100vh - var(--dimension-role-dialog-inset));
   overflow: auto;
-  padding: var(--dimension-role-space-region);
+  padding: var(--dimension-role-space-loose);
   background: var(--color-role-surface-canvas);
   border: var(--dimension-role-separator-width) solid var(--color-role-border-strong);
   border-radius: var(--radius-role-panel);
@@ -265,7 +265,7 @@ nw-assertion-card {
   display: block;
   padding: var(--dimension-role-space-stack);
   margin-block-end: var(--dimension-role-space-inline);
-  border-inline-start: var(--dimension-role-focus-width) solid var(--color-role-border-strong);
+  border-inline-start: var(--dimension-role-space-tight) solid var(--color-role-border-strong);
 }
 
 /* CMP-14 Counterfactual comparison matrix. */
@@ -316,7 +316,7 @@ nw-region-tabs [role="tab"][aria-selected="true"] {
 nw-pane-message {
   display: block;
   max-inline-size: var(--dimension-role-pane-message-max);
-  margin-block: var(--dimension-role-space-region);
+  margin-block: var(--dimension-role-space-xloose);
   margin-inline: auto;
   padding: var(--dimension-role-space-region);
 }

@@ -90,7 +90,7 @@ export function renderPrimary(s, data, handlers) {
     el("h2", { "data-role": "primary-title", text: primaryTitle(s.mode) }),
     el("p", { "data-role": "projection-label", text: `Showing commit ${s.commitId} (projection ${s.projectionVersion ?? "n/a"})` }),
   ]);
-  if (s.mode === "composition") primary.append(compositionCanvas(data, handlers));
+  if (s.mode === "composition") primary.append(compositionCanvas(data, handlers, s.selectedId));
   else if (s.mode === "criticism") primary.append(criticismCanvas(s, data, handlers));
   else if (s.mode === "counterfactual") primary.append(comparisonMatrix(data));
   primary.append(jobStatus(data.job));
@@ -101,7 +101,7 @@ function primaryTitle(mode) {
   return { composition: "Composition Studio", criticism: "Criticism Parlor", counterfactual: "Counterfactual Laboratory" }[mode];
 }
 
-function compositionCanvas(data, handlers) {
+function compositionCanvas(data, handlers, selectedId) {
   const canvas = el("nw-canvas", {});
   const list = el("div", { role: "list", "aria-label": "Narrative objects" });
   for (const obj of data.objects) {
@@ -118,7 +118,7 @@ function compositionCanvas(data, handlers) {
   const tray = el("nw-candidate-tray", {});
   for (const cand of data.candidates) {
     tray.append(
-      el("div", { role: "option", "data-id": cand.id, "aria-selected": "false", onclick: () => handlers.onSelectCandidate(cand.id) }, [
+      el("div", { role: "option", "data-id": cand.id, "aria-selected": String(selectedId === cand.id), onclick: () => handlers.onSelectCandidate(cand.id) }, [
         el("div", { text: cand.label }),
         el("div", { class: "object-kind", text: cand.changed }),
       ])
