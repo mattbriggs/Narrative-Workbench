@@ -10,6 +10,16 @@ Standing rules for every session in this repository. The governing spec is
 
 Don't add other frameworks, languages, or graph libraries unless the user asks.
 
+## Cloud sessions
+
+`scripts/cloud-setup.sh` runs at the start of each cloud session and installs
+the toolchain. The Python engine uses the `.venv` at the repo root.
+
+A cloud machine has no display, so it can't open the Tauri desktop window. In
+the cloud, build and test the Rust and Python parts, and serve the web front
+end to headless Chromium (Playwright) for the spec's screenshot checks. Don't
+claim the desktop app was checked. The user checks it on their Mac.
+
 ## Design tokens
 
 - Use only the spec's **role tokens** (`{color.role.*}`, `{typography.role.*}`,
