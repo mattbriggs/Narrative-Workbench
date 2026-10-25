@@ -61,3 +61,17 @@ semantic conflict resolver path is exercised via the repository (Phase 1).
 | Engine (Python, cumulative) | 93 | 99% line / 98% branch | ≥ 90% | PASS |
 | App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
 | UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
+
+## Phase 4 — Multiscale architecture
+
+Engine modules added: versioned structural frameworks with a registry that
+evaluates one graph under several frameworks (unit-type and containment rules)
+without duplication, and episode continuity contracts with mutation rules and
+closure-driven state propagation into a shared ledger (restore persists
+nothing; preserved invariants are never overwritten).
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python, cumulative) | 99 | 99% line / 98% branch | ≥ 90% | PASS |
+| App (Rust) | 29 | 98.0% (unchanged) | ≥ 80% | PASS |
+| UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
