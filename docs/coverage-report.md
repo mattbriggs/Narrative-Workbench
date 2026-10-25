@@ -30,3 +30,19 @@ lifecycle, semantic-conflict detection, provenance records, evidence anchors
 (pins) + publication gate, hard-invariant validation + soft goals; Rust
 proposal lifecycle, authority, repository port, provenance, engine-client
 contract, commands; JS proposal/selection/job statecharts and observable store.
+
+## Phase 2 — Critical laboratory
+
+Engine modules added: source ingestion + fingerprint + segmentation, the
+proposal-only AI gateway (prohibited-authority enforcement, extraction and
+candidate proposals with model metadata), interpretive assertions
+(Observation/Finding/Claim) with evidence-gated acceptance and competing-lens
+comparison, the seven-dimension counterfactual comparison matrix (deterministic
+vs. generated hypotheses; reader model = intended), the timeline projection, and
+the event-driven job runner (partial never committed; linked retry).
+
+| Layer | Tests | Coverage | Target | Result |
+| --- | --- | --- | --- | --- |
+| Engine (Python, cumulative) | 88 | 99% line / 98% branch | ≥ 90% | PASS |
+| App (Rust) | 29 | 98.0% region / 97.6% line (unchanged) | ≥ 80% | PASS |
+| UI (JS) | 14 | 100% (unchanged) | states covered | PASS |
