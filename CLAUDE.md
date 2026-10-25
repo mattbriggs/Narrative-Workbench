@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 Standing rules for every session in this repository. The governing spec is
-`Narrative_Workbench_Visual_and_Interaction_Specification.docx` ("the spec").
+`_design/srs/visual-and-interaction-specification.md` ("the spec").
 
 ## Stack
 
@@ -55,10 +55,12 @@ them, pluralise them into new terms, or introduce synonyms.
 ## [PRE] items
 
 Items marked `[PRE]` in the spec are proposed, not decided. Each one stays
-**open (Proposed)** until the owner named in the spec's §9 register
-(PRE-01 to PRE-20) signs it off. You may build against a [PRE] value, but:
+**open (Proposed)** until its named owner signs it off. Owners are listed in
+the spec's §9 register (PRE-01 to PRE-20) and in `_design/srs/pre-register.md`
+(PRE-21 onward, from the change list). You may build against a [PRE] value, but:
 
 - don't mark one as confirmed, closed, or accepted for an owner;
 - don't remove or change a [PRE] provenance tag;
-- record a sign-off only when the owner gives it, and include who and when;
+- record a sign-off only when the owner gives it, and include who and when,
+  in `_design/srs/pre-register.md`;
 - treat any implementation that depends on an open [PRE] item as not accepted.
