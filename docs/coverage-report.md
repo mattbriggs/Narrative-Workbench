@@ -161,9 +161,10 @@ narrow layout keeps context and selection.
 | 2 Computed-style test | PASS (cloud) | per-property assertion suite green at wide/medium/narrow (`run-computed-style.mjs`); the packaged-desktop equivalent is run on the user's Mac |
 | 3 Packaged screenshot comparison | PARTIAL | dev-server screenshots of Screens 1–5 captured headlessly; the **packaged desktop** screenshot gate is verified on the user's Mac (`CLAUDE.md`) |
 | 4 Gherkin scenarios | PASS (cloud subset) | 23 scenario checks green via Playwright, plus unit/statechart coverage; any desktop-only scenarios remain for the Mac |
-| 5 `[PRE]` confirmation (all 20) | OPEN | all 20 remain Proposed; owners must sign off (`docs/pre-register.md`) |
+| 5 `[PRE]` confirmation | CONFIRMED | all items Confirmed by the owner in `_design/srs/pre-register.md` (PRE-01…27, 2026-10-25) — PRE-01 records the Tauri + Python/NetworkX binding |
 
 The engine, application logic, and the full component/screen UI are built and
-verified headlessly in the cloud. What remains is owner sign-off of the `[PRE]`
-items and the packaged-desktop screenshot gate on the user's Mac — neither
-changes the coverage above.
+verified headlessly in the cloud. The `[PRE]` register is now Confirmed by the
+owner (`_design/srs/pre-register.md`); the one remaining gate is the
+packaged-desktop screenshot check on the user's Mac, which does not change the
+coverage above.

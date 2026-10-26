@@ -11,7 +11,7 @@
 | Binding stack | Tauri (Rust backend, JavaScript frontend) + Python engine sidecar (NetworkX) — `CLAUDE.md` C-1 |
 | Requirement keywords | MUST, MUST NOT, SHOULD, MAY per RFC 2119 / RFC 8174 |
 
-> **Scope note.** This plan turns the SRS into an implementation-ready build. It honors the repository standing rules in `CLAUDE.md`: the fixed Tauri + Python/NetworkX stack (no other frameworks, languages, or graph libraries), role-token-only visual values, the fixed state-field vocabulary (body, impulse, boundary, sink, gate, pin, ghost), and the open `[PRE]` register (every `[PRE]` item stays Proposed until its owner signs off; work depending on an open `[PRE]` item is *not accepted*). The skill's default "pure Python" shape is realized in the **engine sidecar**; the **app** is Rust + JS as required. Where the skill prescribes a tool that the stack forbids, the plan keeps the stack and says so.
+> **Scope note.** This plan turns the SRS into an implementation-ready build. It honors the repository standing rules in `CLAUDE.md`: the fixed Tauri + Python/NetworkX stack (no other frameworks, languages, or graph libraries), role-token-only visual values, the fixed state-field vocabulary (body, impulse, boundary, sink, gate, pin, ghost), and the `[PRE]` register rule (a `[PRE]` item is not accepted until its owner signs it off). The owner has since Confirmed all items in `_design/srs/pre-register.md` (PRE-01…27, 2026-10-25), so dependent work is now accepted. The skill's default "pure Python" shape is realized in the **engine sidecar**; the **app** is Rust + JS as required. Where the skill prescribes a tool that the stack forbids, the plan keeps the stack and says so.
 
 ---
 
@@ -217,7 +217,7 @@ Named only where they clarify responsibility, extension, testing, or integration
 
 ### 5.2 Responsive layout
 
-Wide (`252px minmax(520px,1fr) 320px`, ≥1200px), Medium (inspector → drawer, 768–1199px), Narrow (CMP-17 tabs, 360–767px) per SRS REQ-150/151/152, with no outer scroll at wide/medium (REQ-153) and full function at 200% zoom / 1280px (REQ-154). All `[PRE]` dimensions remain Proposed.
+Wide (`252px minmax(520px,1fr) 320px`, ≥1200px), Medium (inspector → drawer, 768–1199px), Narrow (CMP-17 tabs, 360–767px) per SRS REQ-150/151/152, with no outer scroll at wide/medium (REQ-153) and full function at 200% zoom / 1280px (REQ-154). The `[PRE]` layout dimensions are Confirmed in `_design/srs/pre-register.md`.
 
 ### 5.3 Primary user flow (composition)
 
@@ -252,7 +252,7 @@ flowchart LR
 | API docs (app) | `cargo doc` + hand-written command catalog | commands, authority, repository ports | skill |
 | Token reference | generated from DTCG | role tokens → CSS variables mapping | SRS §4.2 |
 | Traceability | Markdown table | REQ/NFR → module → test | SRS Appendix A |
-| `[PRE]` register | Markdown | PRE-01…20 disposition (all Proposed) | spec §9 |
+| `[PRE]` register | Markdown | `_design/srs/pre-register.md` — PRE-01…27, all Confirmed by the owner | spec §9 |
 
 Docstrings follow the skill's guidance: document purpose, caller contract, parameters, return, failure behavior, side effects, integration points, and extension points — as structured metadata for generated docs and diagrams.
 
@@ -295,7 +295,7 @@ Phases map to the spec sequence and the architecture's evolutionary increments. 
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **0 Setup** | Workspace, toolchains, CI, contract generator | `pyproject.toml`, `app/src-tauri/Cargo.toml`, `scripts/gen-contract.py`, CI config | Build + contract-diff | CI green on empty suites | README quick start | — | `cargo test`, `pytest`, token build, and contract-diff all run in CI |
 | **0** | DTCG token file + CSS-variable build + token test | `design-tokens/tokens.dtcg.json`, `build-tokens.mjs`, `ui/styles/css-variables.css` | REQ-145/146, C-2 | Token test fails on any literal | Token reference | — | 0 unresolved aliases; token test passes; no literals in component code |
-| **0** | `[PRE]` register scaffold | `docs/pre-register.md` | C-4 | n/a | `[PRE]` register | — | All 20 items listed as Proposed with owners |
+| **0** | `[PRE]` register | `_design/srs/pre-register.md` | C-4 | n/a | `[PRE]` register | — | All items carry an owner disposition (Confirmed, 2026-10-25) |
 | **1 Foundation** | Engine: NetworkX graph kernel + typed edges + stable IDs | `engine/graph/`, `engine/domain/` | REQ-010…016 | unit: edge constraints, identity, mass(body) | API docs | Phase 0 | Kernel builds/queries a work; edge-type constraints enforced |
 | **1** | Engine: append-only repository, commits, branches | `engine/repository/` | REQ-090…096 | unit: immutability, lineage, rewind-as-pointer | Design docs | Foundation kernel | Commit/branch/rewind preserve history; merge creates new commit |
 | **1** | Engine: provenance records | `engine/provenance/` | REQ-097, NFR-031 | unit: all 7 provenance fields captured | API docs | repository | Every accepted op carries complete provenance + reproducibility status |
@@ -368,4 +368,4 @@ Fill this in when implementation completes. Report status against the table and 
 | 5 Experimental form | Experimental form | REQ-034…035, 015 |
 | 6 Collaboration | Collaboration and ecosystem | REQ-093…094, 120…122; NFR-020…025, 050 |
 
-*End of Implementation Plan (Draft 0.1). Every `[PRE]` item remains Proposed; acceptance of any dependent feature awaits owner sign-off and the five verification checks.*
+*End of Implementation Plan (Draft 0.1). The owner has Confirmed every `[PRE]` item (`_design/srs/pre-register.md`, 2026-10-25); acceptance of each feature then rests on the five verification checks.*
