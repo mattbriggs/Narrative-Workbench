@@ -1,0 +1,14 @@
+{
+  "name": "nw-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Narrative Workbench frontend: token-driven Web Components and synchronized shell.",
+  "scripts": {
+    "build:tokens": "node ../../design-tokens/build-tokens.mjs",
+    "test:tokens": "node tools/token-test.mjs",
+    "test:unit": "node --test state statecharts",
+    "test:computed": "node tools/run-computed-style.mjs",
+    "test:scenarios": "node tools/run-scenarios.mjs"
+  }
+}

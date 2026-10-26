@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Build and coverage artifacts (implementation build)
+app/src-tauri/target/
+engine/.pytest_cache/
+engine/**/__pycache__/
+**/__pycache__/
+.coverage
+app/ui/styles/css-variables.css

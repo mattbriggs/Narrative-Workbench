@@ -1,0 +1,346 @@
+/* Component styles for CMP-01..CMP-18. Role tokens only (CLAUDE.md C-2):
+   every color, dimension, radius, duration, and font-family is a var(--...).
+   Verified by app/ui/tools/token-test.mjs (spec SS10 check 1). */
+
+/* CMP-01 Application shell: grid rows 44 / 36 / 1fr / auto. */
+nw-shell {
+  display: grid;
+  grid-template-rows:
+    var(--dimension-role-global-bar-height)
+    var(--dimension-role-command-bar-height)
+    minmax(0, 1fr)
+    auto;
+  block-size: 100vh;
+  box-sizing: border-box;
+}
+
+/* Work area: Navigator / Primary / Inspector. */
+nw-shell .work-area {
+  display: grid;
+  grid-template-columns:
+    var(--dimension-role-navigator-wide)
+    minmax(var(--dimension-role-primary-min), 1fr)
+    var(--dimension-role-inspector-wide);
+  min-block-size: 0;
+}
+
+/* CMP-02 Global context bar. */
+nw-global-bar {
+  display: flex;
+  min-inline-size: 0;
+  block-size: var(--dimension-role-global-bar-height);
+  padding-inline: var(--dimension-role-space-region);
+  gap: var(--dimension-role-space-stack);
+  align-items: center;
+  background: var(--color-role-surface-strong);
+  color: var(--color-role-text-on-strong);
+}
+nw-global-bar .title {
+  font-family: var(--typography-role-app-title-font-family);
+  font-size: var(--typography-role-app-title-font-size);
+  font-weight: var(--typography-role-app-title-font-weight);
+}
+nw-global-bar .context {
+  font-size: var(--typography-role-label-font-size);
+  font-weight: var(--typography-role-label-font-weight);
+}
+
+/* CMP-03 Command bar. */
+nw-command-bar {
+  display: flex;
+  block-size: var(--dimension-role-command-bar-height);
+  padding-inline: var(--dimension-role-space-stack);
+  gap: var(--dimension-role-space-tight);
+  align-items: center;
+  border-block-end: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+}
+nw-command-bar button {
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  font-weight: var(--typography-role-label-font-weight);
+  color: var(--color-role-text-primary);
+  background: transparent;
+  border: var(--dimension-role-separator-width) solid transparent;
+  border-radius: var(--radius-role-control);
+  padding-inline: var(--dimension-role-space-inline);
+  min-block-size: var(--dimension-role-badge-min-height);
+}
+nw-command-bar button:hover {
+  background: var(--color-role-surface-subtle);
+}
+nw-command-bar button[aria-disabled="true"] {
+  color: var(--color-role-text-muted);
+}
+nw-command-bar .reason {
+  color: var(--color-role-status-warning-text);
+  font-size: var(--typography-role-label-font-size);
+}
+
+/* CMP-04 Navigator (APG tree). */
+nw-navigator {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: auto;
+  border-inline-end: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+  padding: var(--dimension-role-space-stack);
+}
+nw-navigator [role="treeitem"] {
+  padding: var(--dimension-role-space-inline);
+  border-radius: var(--radius-role-control);
+  cursor: default;
+}
+nw-navigator [role="treeitem"][aria-selected="true"] {
+  background: var(--color-role-surface-selection);
+  color: var(--color-role-text-primary);
+}
+
+/* CMP-05 Primary synchronized view. */
+nw-primary {
+  min-inline-size: 0;
+  overflow: auto;
+  padding: var(--dimension-role-space-region);
+}
+nw-primary h2 {
+  font-family: var(--typography-role-pane-header-font-family);
+  font-size: var(--typography-role-pane-header-font-size);
+  font-weight: var(--typography-role-pane-header-font-weight);
+  margin-block: 0 var(--dimension-role-space-stack);
+}
+
+/* CMP-06 Inspector. */
+nw-inspector {
+  overflow: auto;
+  padding: var(--dimension-role-space-stack);
+  border-inline-start: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+}
+nw-inspector .field-label {
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  font-weight: var(--typography-role-label-font-weight);
+  color: var(--color-role-text-secondary);
+}
+nw-inspector [data-readonly="true"] {
+  color: var(--color-role-text-muted);
+}
+
+/* CMP-07 Trace and validation drawer. */
+nw-trace-drawer {
+  border-block-start: var(--dimension-role-separator-width) solid var(--color-role-border-strong);
+  padding: var(--dimension-role-space-stack);
+  block-size: var(--dimension-role-trace-default);
+  min-block-size: var(--dimension-role-trace-min);
+  overflow: auto;
+}
+nw-trace-drawer [role="tab"] {
+  background: transparent;
+  border: none;
+  padding: var(--dimension-role-space-inline);
+  font-size: var(--typography-role-label-font-size);
+  color: var(--color-role-text-secondary);
+}
+nw-trace-drawer [role="tab"][aria-selected="true"] {
+  color: var(--color-role-text-primary);
+  border-block-end: var(--dimension-role-focus-width) solid var(--color-role-border-strong);
+}
+nw-trace-drawer .data {
+  font-family: var(--typography-role-data-font-family);
+  font-size: var(--typography-role-data-font-size);
+}
+
+/* CMP-08 Provenance and lifecycle badge (text + icon; color never alone). */
+nw-badge {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--dimension-role-badge-min-height);
+  padding-block: var(--dimension-role-focus-offset);
+  padding-inline: var(--dimension-role-space-inline);
+  gap: var(--dimension-role-space-tight);
+  border-radius: var(--radius-role-control);
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  font-weight: var(--typography-role-label-font-weight);
+}
+nw-badge[data-kind="machine"] {
+  background: var(--color-role-status-machine-fill);
+  color: var(--color-role-status-machine-text);
+}
+nw-badge[data-kind="accepted"] {
+  background: var(--color-role-status-accepted-fill);
+  color: var(--color-role-status-accepted-text);
+}
+nw-badge[data-kind="warning"],
+nw-badge[data-kind="broken"] {
+  background: var(--color-role-status-warning-fill);
+  color: var(--color-role-status-warning-text);
+}
+nw-badge[data-kind="error"] {
+  background: var(--color-role-status-error-fill);
+  color: var(--color-role-status-error-text);
+}
+nw-badge[data-kind="source"],
+nw-badge[data-kind="validated"] {
+  background: var(--color-role-surface-subtle);
+  color: var(--color-role-text-secondary);
+}
+
+/* CMP-09 Proposal preview and CMP-16 conflict resolver (modal dialogs). */
+nw-proposal-preview[hidden],
+nw-conflict-resolver[hidden],
+nw-region-tabs[hidden] {
+  display: none;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--color-role-surface-strong);
+  opacity: 0.5;
+}
+.modal-dialog {
+  position: fixed;
+  inset-block-start: var(--dimension-role-dialog-inset);
+  inset-inline: 0;
+  margin-inline: auto;
+  inline-size: min(var(--dimension-role-dialog-width), calc(100vw - var(--dimension-role-space-region) * 2));
+  max-block-size: calc(100vh - var(--dimension-role-dialog-inset));
+  overflow: auto;
+  padding: var(--dimension-role-space-loose);
+  background: var(--color-role-surface-canvas);
+  border: var(--dimension-role-separator-width) solid var(--color-role-border-strong);
+  border-radius: var(--radius-role-panel);
+}
+.diff-label {
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  font-weight: var(--typography-role-label-font-weight);
+}
+
+/* CMP-10 Object and relationship canvas. */
+nw-canvas .object-card {
+  min-inline-size: var(--dimension-role-card-min-width);
+  padding: var(--dimension-role-space-stack);
+  margin-block-end: var(--dimension-role-space-inline);
+  border: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+  border-radius: var(--radius-role-control);
+}
+nw-canvas .object-kind {
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  color: var(--color-role-text-secondary);
+}
+
+/* CMP-11 Candidate trajectory tray. */
+nw-candidate-tray {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dimension-role-space-inline);
+}
+nw-candidate-tray [role="option"] {
+  padding: var(--dimension-role-space-stack);
+  border: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+  border-radius: var(--radius-role-control);
+}
+nw-candidate-tray [role="option"][aria-selected="true"] {
+  background: var(--color-role-surface-selection);
+}
+
+/* CMP-12 Evidence span (pin): read-only source. */
+nw-evidence-span {
+  display: block;
+  padding: var(--dimension-role-space-stack);
+  border: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+  border-radius: var(--radius-role-control);
+}
+nw-evidence-span .source-text {
+  font-family: var(--typography-role-body-font-family);
+}
+nw-evidence-span .anchor-id {
+  font-family: var(--typography-role-data-font-family);
+  font-size: var(--typography-role-data-font-size);
+  color: var(--color-role-text-muted);
+}
+
+/* CMP-13 Interpretive assertion card. */
+nw-assertion-card {
+  display: block;
+  padding: var(--dimension-role-space-stack);
+  margin-block-end: var(--dimension-role-space-inline);
+  border-inline-start: var(--dimension-role-space-tight) solid var(--color-role-border-strong);
+}
+
+/* CMP-14 Counterfactual comparison matrix. */
+nw-comparison-matrix table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+nw-comparison-matrix th,
+nw-comparison-matrix td {
+  padding-block: var(--dimension-role-space-inline);
+  padding-inline: var(--dimension-role-space-stack);
+  border: var(--dimension-role-separator-width) solid var(--color-role-border-default);
+  text-align: start;
+  vertical-align: top;
+}
+nw-comparison-matrix .data {
+  font-family: var(--typography-role-data-font-family);
+  font-size: var(--typography-role-data-font-size);
+}
+
+/* CMP-15 Long job status. */
+nw-job-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dimension-role-space-tight);
+  font-size: var(--typography-role-label-font-size);
+}
+
+/* CMP-17 Responsive region tabs (shown below the medium breakpoint). */
+nw-region-tabs {
+  block-size: var(--dimension-role-global-bar-height);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+nw-region-tabs [role="tab"] {
+  background: transparent;
+  border: none;
+  font-family: var(--typography-role-label-font-family);
+  font-size: var(--typography-role-label-font-size);
+  color: var(--color-role-text-secondary);
+}
+nw-region-tabs [role="tab"][aria-selected="true"] {
+  background: var(--color-role-surface-strong);
+  color: var(--color-role-text-on-strong);
+}
+
+/* CMP-18 Pane state message. */
+nw-pane-message {
+  display: block;
+  max-inline-size: var(--dimension-role-pane-message-max);
+  margin-block: var(--dimension-role-space-xloose);
+  margin-inline: auto;
+  padding: var(--dimension-role-space-region);
+}
+nw-pane-message h3 {
+  font-family: var(--typography-role-pane-header-font-family);
+  font-size: var(--typography-role-pane-header-font-size);
+}
+
+/* Responsive: narrow layout is driven by JS setting data-viewport (no literal
+   px in media queries). At narrow width the work area becomes one column and
+   the region tabs appear. */
+nw-shell[data-viewport="narrow"] .work-area {
+  grid-template-columns: 1fr;
+}
+nw-shell[data-viewport="narrow"] nw-navigator,
+nw-shell[data-viewport="narrow"] nw-inspector {
+  border: none;
+}
+nw-shell[data-viewport="medium"] .work-area {
+  grid-template-columns: var(--dimension-role-navigator-wide) minmax(0, 1fr);
+}
+nw-shell:not([data-viewport="narrow"]) nw-region-tabs {
+  display: none;
+}
+nw-shell[data-viewport="narrow"] .region[data-active="false"] {
+  display: none;
+}

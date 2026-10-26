@@ -1,0 +1,36 @@
+/* Base reset and page frame. Role tokens only (CLAUDE.md C-2); no literal
+   visual values live here -- they live in the DTCG token file. The spec defines
+   a single light token set, so no theme is invented. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--color-role-surface-canvas);
+  color: var(--color-role-text-primary);
+  font-family: var(--typography-role-body-font-family);
+  font-size: var(--typography-role-body-font-size);
+  font-weight: var(--typography-role-body-font-weight);
+  line-height: var(--typography-role-body-line-height);
+}
+
+/* Focus ring: 3px ring with a 2px offset, always visible (spec SS4). */
+:focus-visible {
+  outline: var(--dimension-role-focus-width) solid var(--color-role-focus-ring);
+  outline-offset: var(--dimension-role-focus-offset);
+}
+
+/* Reduced motion removes transitions without losing state feedback (SS4). */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0ms !important;
+  }
+}

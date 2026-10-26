@@ -1,0 +1,15 @@
+[package]
+name = "nw_app"
+version = "0.1.0"
+edition = "2021"
+description = "Narrative Workbench application layer: commands, authority, repository ports, provenance, and the engine contract. Pure Rust (no GUI dependency) so it builds and is covered headlessly; the Tauri binary wiring links these modules on the desktop target."
+
+[lib]
+name = "nw_app"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
